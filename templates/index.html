@@ -3,15 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Agenda de Contactos</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; }
+    form input { margin: 5px; padding: 5px; }
+    button { padding: 5px 10px; }
+    a { text-decoration: none; margin-right: 10px; }
+  </style>
 </head>
 <body>
-  <h1>Lista de Contactos</h1>
-  <ul>
+  <h1>Agenda de Contactos</h1>
+
+  <form method="POST" action="/add">
+    <input type="text" name="name" placeholder="Nombre" required>
+    <input type="email" name="email" placeholder="Correo">
+    <input type="text" name="phone" placeholder="Teléfono">
+    <button type="submit">Agregar</button>
+  </form>
+
+  <h2>Lista de contactos</h2>
+  <table>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
     {% for contact in contacts %}
-      <li>{{ contact.name }} - {{ contact.email }} - {{ contact.phone }}</li>
+    <tr>
+      <td>{{ contact.name }}</td>
+      <td>{{ contact.email }}</td>
+      <td>{{ contact.phone }}</td>
+      <td>
+        <a href="/view/{{ contact.id }}">Ver</a> |
+        <a href="/edit/{{ contact.id }}">Editar</a> |
+        <a href="/delete/{{ contact.id }}">Eliminar</a>
+      </td>
+    </tr>
     {% endfor %}
-  </ul>
-  <a href="/add">Agregar nuevo contacto</a>
+  </table>
 </body>
 </html>
-
